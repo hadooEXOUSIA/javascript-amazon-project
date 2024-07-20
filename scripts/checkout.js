@@ -16,7 +16,7 @@ cart.forEach((cartItem) => {
       matchingProduct = product;
     }
   });
-  const deliveryOptionId = cartItem.deliveryOptionsId;
+  const deliveryOptionId = cartItem.deliveryOptionId;
   let deliveryOption;
   deliveryOptions.forEach((option) => {
     if (option.id === deliveryOptionId) {
@@ -81,7 +81,7 @@ function deliveryOptionHTML(matchingProduct, cartItem) {
       deliveryOption.priceCents === 0
         ? "Free"
         : `$${formatCurrency(deliveryOption.priceCents)} - `;
-    const isChecked = deliveryOption.id === cartItem.deliveryOptionsId;
+    const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
     html += `    <div class="delivery-option">
         <input
