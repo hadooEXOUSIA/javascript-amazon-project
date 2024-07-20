@@ -1,4 +1,4 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart, updateDeliveryOption } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utilities/moeny.js";
 import { deliveryOptions } from "../data/deliveryOption.js";
@@ -83,7 +83,11 @@ function deliveryOptionHTML(matchingProduct, cartItem) {
         : `$${formatCurrency(deliveryOption.priceCents)} - `;
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
-    html += `    <div class="delivery-option">
+    html += `
+    <div class="delivery-option  js-delivery-option"
+    
+            data-product-id="${matchingProduct.id}"
+            data-delivery-option-id="${deliveryOption.id}">
         <input
             type="radio"
             ${isChecked ? "Checked" : ""}
@@ -94,7 +98,7 @@ function deliveryOptionHTML(matchingProduct, cartItem) {
             <div class="delivery-option-date">${dateString}</div>
             <div class="delivery-option-price">${priceString} Shipping</div>
         </div>
-        </div>`;
+    </div>`;
   });
 
   return html;
@@ -109,5 +113,14 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
       `.js-cart-item-container-${productId}`
     );
     container.remove();
+  });
+});
+
+document.querySelectorAll(".js-delivery-option").forEach((element) => {
+  element.addEventListener("click", () => {
+    const productId = element.dataset.productId;
+    const deliveryOptionId = element.dataset.deliveryOptionId;
+    /*   console.log(productId); */
+    updateDeliveryOption(productId, deliveryOptionId);
   });
 });
