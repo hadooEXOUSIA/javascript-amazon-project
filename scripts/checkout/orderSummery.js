@@ -106,6 +106,7 @@ export function renderOrderSummery() {
         `.js-cart-item-container-${productId}`
       );
       container.remove();
+      renderPaymentSummery();
     });
   });
 
